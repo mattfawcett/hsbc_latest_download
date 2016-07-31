@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+require "hsbc_latest_download/download"
+
+download = HsbcLatestDownload::Download.new(ARGV[0], ARGV[1], ARGV[2], ARGV[3])
+
+download.run!

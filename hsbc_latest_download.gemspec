@@ -7,11 +7,11 @@ Gem::Specification.new do |spec|
   spec.name          = "hsbc_latest_download"
   spec.version       = HsbcLatestDownload::VERSION
   spec.authors       = ["Matt Fawcett"]
-  spec.email         = ["fawcett@viddler.com"]
+  spec.email         = ["mail@matthewfawcett.co.uk"]
 
   spec.summary       = %q{Download latest hsbc transactions as OFX}
   spec.description   = %q{Download latest hsbc transactions as OFX}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/mattfawcett/hsbc_latest_download"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
