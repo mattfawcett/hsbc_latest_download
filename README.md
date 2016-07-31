@@ -4,20 +4,30 @@ A script to download latest transactional data as OFX from HSBC personal online 
 
 Use at own risk.
 
-
 ## Installation
 
-    $ gem install hsbc_latest_download
+### Basic installation
+
+    gem install hsbc_latest_download
+
+### To install with signature checks to ensure that the gem has not been tampered with
+
+    gem cert --add <(curl -Ls https://raw.githubusercontent.com/mattfawcett/hsbc_latest_download/master/certs/mattfawcett.pem)
+
+    gem install hsbc_latest_download -P MediumSecurity
 
 ## Usage
 
-    # Options
+Options
+
     hsbc_latest_download username memorableword password [optionalaccountname=HSBC ADVANCE]
 
-    # Example. Passing credentials like this is insecure. At minimum use [HISTCONTROL](http://www.linuxjournal.com/content/using-bash-history-more-efficiently-histcontrol)
+Example. Passing credentials like this is insecure. At minimum use [HISTCONTROL](http://www.linuxjournal.com/content/using-bash-history-more-efficiently-histcontrol)
+
     hsbc_latest_download IB1234567890 mymemorableword mypassword
 
-    # Example using [password manager](https://www.passwordstore.org/)
+Example using [password manager](https://www.passwordstore.org/)
+
     hsbc_latest_download IB1234567890 `pass hsbc.co.uk.memorable` `pass hsbc.co.uk.password`
 
 ## License
