@@ -1,6 +1,6 @@
 # HsbcLatestDownload
 
-A script to download latest transactional data as OFX from HSBC personal online banking.
+A selenium script written in ruby to download latest transactional data as OFX from HSBC personal online banking.
 
 Use at own risk.
 
