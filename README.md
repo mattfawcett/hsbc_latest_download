@@ -17,18 +17,17 @@ Use at own risk.
     gem install hsbc_latest_download -P MediumSecurity
 
 ## Usage
+Example. Run with no arguments and you will be promted for username, memorable word, and password
 
-Options
-
-    hsbc_latest_download username memorableword password [optionalaccountname=HSBC ADVANCE]
+    hsbc_latest_download
 
 Example. Passing credentials like this is insecure. At minimum use [HISTCONTROL](http://www.linuxjournal.com/content/using-bash-history-more-efficiently-histcontrol)
 
-    hsbc_latest_download IB1234567890 mymemorableword mypassword
+    hsbc_latest_download -u username -m memorableword -p password [-a optionalaccountname]
 
 Example using [password manager](https://www.passwordstore.org/)
 
-    hsbc_latest_download IB1234567890 `pass hsbc.co.uk.memorable` `pass hsbc.co.uk.password`
+    hsbc_latest_download -u IB1234567890 -m `pass hsbc.co.uk.memorable` -p `pass hsbc.co.uk.password`
 
 ## License
 

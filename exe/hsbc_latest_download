@@ -1,8 +1,46 @@
 #!/usr/bin/env ruby
 
+require "optparse"
 require "bundler/setup"
 require "hsbc_latest_download/download"
 
-download = HsbcLatestDownload::Download.new(ARGV[0], ARGV[1], ARGV[2], ARGV[3])
+options = {account_name: 'HSBC ADVANCE'}
 
+OptionParser.new do |opts|
+  opts.banner = "Usage: hsbc_latest_download options"
+
+  opts.on("-u", "--username USERNAME", "Username. Eg IB123456789") do |u|
+    options[:username] = u
+  end
+
+  opts.on("-p", "--password PASSWORD", "Password") do |p|
+    options[:password] = p
+  end
+
+  opts.on("-m", "--memorable-answer MEMORABLE", "Memorable Phrase") do |m|
+    options[:memorable_answer] = m
+  end
+
+  opts.on("-a", "--account-name ACCOUNT_NAME", "Account name: Default 'HSBC ADVANCE'") do |a|
+    options[:account_name] = a
+  end
+end.parse!
+
+unless options[:username]
+  puts "Enter Username:"
+  options[:username] = gets.chomp
+end
+
+unless options[:password]
+  puts "Enter Password"
+  options[:password] = gets.chomp
+end
+
+unless options[:memorable_answer]
+  puts "Enter Memorable Answer"
+  options[:memorable_answer] = gets.chomp
+end
+
+
+download = HsbcLatestDownload::Download.new(options)
 download.run!

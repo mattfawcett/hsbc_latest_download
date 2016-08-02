@@ -4,11 +4,8 @@ module HsbcLatestDownload
   class Download
     HSBC_URL = 'https://www.hsbc.co.uk/'
 
-    def initialize(username, memorable_answer, password, account_name)
-      @username = username
-      @memorable_answer = memorable_answer
-      @password = password
-      @account_name = account_name || 'HSBC ADVANCE'
+    def initialize(options)
+      @options = options
     end
 
     def run!
@@ -18,12 +15,12 @@ module HsbcLatestDownload
       driver.find_element(partial_link_text: 'Log on').click
 
       element = driver.find_element(:name, 'userid')
-      element.send_keys @username
+      element.send_keys @options[:username]
       element.submit
 
       driver.find_element(partial_link_text: 'Without Secure Key').click
 
-      driver.find_element(name: 'memorableAnswer').send_keys(@memorable_answer)
+      driver.find_element(name: 'memorableAnswer').send_keys(@options[:memorable_answer])
 
       (1..8).each do |char|
         field = driver.find_element(name: "pass#{char}")
@@ -35,7 +32,7 @@ module HsbcLatestDownload
 
       driver.find_element(class: 'submit_input').click
 
-      driver.find_element(:link_text, @account_name).click
+      driver.find_element(:link_text, @options[:account_name]).click
       driver.find_element(:link_text, 'Download transactions').click
 
       wait = Selenium::WebDriver::Wait.new(:timeout => 10)
@@ -57,13 +54,13 @@ module HsbcLatestDownload
 
     def password_character(number)
       if number <= 6
-        return @password[number-1, 1]
+        return @options[:password][number-1, 1]
       elsif number == 7
         # second to last character
-        return @password[@password.length-2, 1]
+        return @options[:password][@options[:password].length-2, 1]
       else
         # last character
-        return @password[@password.length-1, 1]
+        return @options[:password][@options[:password].length-1, 1]
       end
     end
   end
