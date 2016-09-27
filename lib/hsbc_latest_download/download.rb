@@ -12,6 +12,8 @@ module HsbcLatestDownload
       driver = Selenium::WebDriver.for :chrome
       driver.navigate.to HSBC_URL
 
+      wait = Selenium::WebDriver::Wait.new(:timeout => 10)
+
       driver.find_element(partial_link_text: 'Log on').click
 
       element = driver.find_element(:name, 'userid')
@@ -32,19 +34,18 @@ module HsbcLatestDownload
 
       driver.find_element(class: 'submit_input').click
 
-      driver.find_element(:link_text, @options[:account_name]).click
-      driver.find_element(:link_text, 'Download transactions').click
+      wait.until { driver.find_element(:partial_link_text =>  @options[:account_name]) }
+      sleep 1
+      driver.find_element(:partial_link_text, @options[:account_name]).click
 
-      wait = Selenium::WebDriver::Wait.new(:timeout => 10)
-      wait.until { driver.find_element(:name =>  'downloadType') }
+      wait.until { driver.find_element(:partial_link_text =>  'Download') }
+      driver.find_element(:partial_link_text, 'Download').click
 
-      file_type = driver.find_element(:name, 'downloadType')
-      file_type.find_elements( :tag_name => "option" ).find do |option|
-        option.text == 'Money 98 onwards (OFX)'
-      end.click
+      within_modal = "//div[contains(concat(' ',normalize-space(@class),' '),' dijitDialogFixed ')]"
+      wait.until { driver.find_element(:xpath =>  "#{within_modal}//input[@value='ofx']") }
+      driver.find_element(:xpath, "#{within_modal}//input[@value='ofx']").click
 
-      driver.find_element(:link_text, 'Continue').click
-      driver.find_element(:link_text, 'Confirm').click
+      driver.find_element(:xpath, "#{within_modal}//button[@data-dojo-attach-point='dapDownloadBtn']").click
 
       sleep 10
 
