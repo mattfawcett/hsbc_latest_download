@@ -16,6 +16,7 @@ module HsbcLatestDownload
 
       driver.find_element(partial_link_text: 'Log on').click
 
+      wait.until { driver.find_element(:name => 'userid') }
       element = driver.find_element(:name, 'userid')
       element.send_keys @options[:username]
       element.submit
