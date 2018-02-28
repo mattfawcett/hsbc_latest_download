@@ -14,7 +14,8 @@ module HsbcLatestDownload
 
       wait = Selenium::WebDriver::Wait.new(:timeout => 10)
 
-      driver.find_element(partial_link_text: 'Log on').click
+      wait.until { driver.find_element(:class =>  'login-button') }
+      driver.find_element(class: 'login-button').click
 
       wait.until { driver.find_element(:name => 'userid') }
       element = driver.find_element(:name, 'userid')
@@ -45,9 +46,9 @@ module HsbcLatestDownload
       within_modal = "//div[contains(concat(' ',normalize-space(@class),' '),' dijitDialogFixed ')]"
       wait.until { driver.find_element(:xpath =>  "#{within_modal}//input[@value='ofx']") }
       driver.find_element(:xpath, "#{within_modal}//input[@value='ofx']").click
+      sleep 1
 
       driver.find_element(:xpath, "#{within_modal}//button[@data-dojo-attach-point='dapDownloadBtn']").click
-
       sleep 10
 
       driver.find_element(partial_link_text: 'Log off').click
